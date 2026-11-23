@@ -69,8 +69,9 @@ confirmed decisions and verified API facts, and overrides Part A.
 - Phase 7 built: README.md, docs/VERIFICATION_METHODOLOGY.md, examples/ (synthetic, from eval/make_examples.py),
   pre-commit secret check (`scripts/precommit_check.py`, `.githooks/pre-commit`, core.hooksPath set), hygiene
   test for AI-disclosure headers. `pytest`: 353 passed. A `--all` secret scan of what would be committed is clean.
-- Nothing has been committed yet (the author commits). A code licence is not chosen yet.
-- **Next: Checkpoint 7** (final). Wait for the author's OK.
+- Checkpoint 7 passed. First commit `833065c` on main (135 files; pre-commit secret check passed), authored
+  with the GitHub noreply address (repo-local `user.email`). Not pushed.
+  A code licence is not chosen yet. Task registration is left to the author.
 - Then: `docs/FIELD_MAPPING.md`, `config/policy.yaml` (pinned: project id 46777, slug
   `masswildlife-s-all-wildlife-biodiversity-project`, `scope_place_id: 141552`, window field `created_at`),
   `sql/admin/001_provenance_index.sql`, `002_run_state.sql`, `003_test_table.sql`, `900_reset_test.sql`,
