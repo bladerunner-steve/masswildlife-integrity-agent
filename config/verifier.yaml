@@ -1,0 +1,32 @@
+# Verifier trust configuration: the values the verifier pins independently of anything inside the vault.
+# Layer B checks the signed PR0 policy snapshot AND the recorded requests against these pins, so a run that
+# signs a policy for another project or place, or a looser policy, still fails.
+# Inputs of the verifier: the vault, keys/public (trusted keys + keyring), the anchors file, and this file.
+# AI-assisted (Claude). Verified by: tests/test_verify.py.
+verifier_version: 1
+
+pins:
+  host: api.inaturalist.org
+  endpoint: /v2/observations
+  method: GET
+  project_id: 46777
+  project_slug: masswildlife-s-all-wildlife-biodiversity-project
+  scope_place_id: 141552
+  window_field: created_at
+  max_window_hours: 24
+  max_grace_minutes: 15
+  db_user: claude
+  db_targets: [masswildlife.inaturalist, masswildlife.inaturalist_test]
+  allowed_db_operations: [SELECT, INSERT, UPDATE]
+  forbidden_params: [place_id, lat, lng, radius, nelat, nelng, swlat, swlng, user_id]
+  forbidden_fields: [private_geojson, private_location, private_place_guess]
+  declared_steps: ["M0:plan", "M1:request", "M2:response", "M3:filter", "M4:db", "M5:complete"]
+
+evidence:
+  # A response fetched more than this long after its window closed counts as stale (insufficient evidence).
+  max_fetch_lag_minutes: 120
+
+# Verdict for a run with receipts but no seal (truncated trace). Decided by the author on 2026-11-23
+# (Phase 5): insufficient. A missing seal alone doesn't prove tampering, and suppressing the newest seal is
+# caught by the anchors once a later run exists.
+truncated_trace: insufficient

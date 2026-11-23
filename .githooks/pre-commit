@@ -1,0 +1,9 @@
+#!/bin/sh
+# Pre-commit hook: refuse commits that stage secrets, keys, .env files or private run data.
+# Enable once per clone:  git config core.hooksPath .githooks
+# AI-assisted (Claude). Verified by: tests/test_precommit.py.
+ROOT="$(git rev-parse --show-toplevel)"
+if [ -x "$ROOT/.venv/Scripts/python.exe" ]; then PY="$ROOT/.venv/Scripts/python.exe"
+elif [ -x "$ROOT/.venv/bin/python" ]; then PY="$ROOT/.venv/bin/python"
+else PY=python3; fi
+exec "$PY" "$ROOT/scripts/precommit_check.py"

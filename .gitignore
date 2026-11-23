@@ -1,0 +1,36 @@
+# --- Secrets (never commit) ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+keys/*
+!keys/public/
+!keys/public/**
+
+# --- Write-once vault, anchors repo, runtime state ---
+vault/
+vault-test/
+vault-test-eval/
+anchors/
+anchors-test/
+*.lock
+
+# --- Data (seed export contains observer names) ---
+data/
+
+# --- Outputs ---
+reports/runs/
+reports/ALERTS.md
+reports/index.html
+logs/
+eval/results/raw/
+
+# --- Python ---
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/

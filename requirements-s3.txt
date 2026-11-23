@@ -1,0 +1,3 @@
+# Optional: only for the S3ObjectLockVault backend.
+-r requirements.txt
+boto3==1.43.127

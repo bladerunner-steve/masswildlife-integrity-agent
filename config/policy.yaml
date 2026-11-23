@@ -1,0 +1,52 @@
+# MassWildlife Integrity Agent — run policy.
+# This file is hashed into every PR0 (Minimal Specification). Any change is visible in the receipts, and the
+# verifier (layer B) re-evaluates the policy from the signed PR0 snapshot, never from this file on disk.
+# AI-assisted (Claude). Values pinned in Phase 0 and verified against https://api.inaturalist.org/v2/api-docs
+# plus live probes on 2026-11-23 (see docs/PROJECT_BRIEF.md Part B). Tests: Phase 1/3 policy-gate tests.
+
+policy_version: 1
+
+source:
+  host: api.inaturalist.org
+  endpoint: /v2/observations          # verified in v2 OpenAPI (paths./observations, server /v2)
+  method: GET
+  project:
+    title: "MassWildlife's All Wildlife Biodiversity Project"
+    id: 46777
+    slug: masswildlife-s-all-wildlife-biodiversity-project
+    # 46777 is an umbrella project: observations never list it in project_ids. PR3 accepts a record only
+    # if its place_ids contains this pinned place (custom place with the project's name).
+    scope_place_id: 141552
+  # Only these query parameters may appear in a request. Anything else is a gate violation.
+  allowed_params: [project_id, created_d1, created_d2, order_by, order, per_page, page, id_above, fields]
+  required_params:
+    project_id: 46777
+    order_by: id
+    order: asc
+  # Location or scope overrides: presence of any of these is a violation (rule src.forbidden_param).
+  forbidden_params: [place_id, lat, lng, radius, nelat, nelng, swlat, swlng, user_id]
+  # True/private coordinates must never be requested or stored (geoprivacy rule).
+  forbidden_fields: [private_geojson, private_location, private_place_guess]
+
+window:
+  field: created_at                   # confirmed by author
+  params: [created_d1, created_d2]    # verified live: second precision, both bounds inclusive
+  max_hours: 24
+  grace_minutes: 15                   # tolerance for scheduler jitter
+
+database:
+  target: masswildlife.inaturalist
+  test_target: masswildlife.inaturalist_test
+  user: claude                                   # the only DB account the agent may use
+  allowed_operations: [SELECT, INSERT, UPDATE]   # matches the MySQL grant; no DELETE/DROP/ALTER/TRUNCATE/CREATE/REPLACE
+  upsert: insert_on_duplicate_key_update
+  unique_key: id                                 # PRIMARY KEY (id), confirmed by SHOW INDEX 2026-11-23
+
+auth:
+  allow_anonymous: true
+  min_token_validity_minutes: 60      # below this, fall back to anonymous and warn "token needs refresh"
+
+rate_limit:
+  max_requests_per_minute: 60         # iNaturalist asks for <= 1 req/s
+  per_page: 200                       # verified live: per_page=200 accepted
+  user_agent: masswildlife-integrity-agent/0.1

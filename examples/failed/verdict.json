@@ -1,0 +1,187 @@
+{
+  "run_id": "403092c1-2859-4f09-b78b-bca5f0059893",
+  "run_date": "2026-11-23",
+  "mode": "crypto+policy+evidence",
+  "config": "C",
+  "status": "VERIFICATION FAILED",
+  "first_failure": {
+    "layer": "B",
+    "code": "request_forbidden_param",
+    "severity": "fail",
+    "detail": "place_id",
+    "step": 1,
+    "module": "M1:request",
+    "message": "The request used a location or scope parameter that the policy forbids."
+  },
+  "findings": {
+    "A": [],
+    "B": [
+      {
+        "layer": "B",
+        "code": "request_forbidden_param",
+        "severity": "fail",
+        "detail": "place_id",
+        "step": 1,
+        "module": "M1:request",
+        "message": "The request used a location or scope parameter that the policy forbids."
+      },
+      {
+        "layer": "B",
+        "code": "request_unknown_param",
+        "severity": "fail",
+        "detail": "place_id",
+        "step": 1,
+        "module": "M1:request",
+        "message": "The request used a parameter that the policy does not allow."
+      },
+      {
+        "layer": "B",
+        "code": "request_forbidden_param",
+        "severity": "fail",
+        "detail": "place_id",
+        "step": 2,
+        "module": "M2:response",
+        "message": "The request used a location or scope parameter that the policy forbids."
+      },
+      {
+        "layer": "B",
+        "code": "request_unknown_param",
+        "severity": "fail",
+        "detail": "place_id",
+        "step": 2,
+        "module": "M2:response",
+        "message": "The request used a parameter that the policy does not allow."
+      },
+      {
+        "layer": "B",
+        "code": "request_forbidden_param",
+        "severity": "fail",
+        "detail": "place_id",
+        "step": 2,
+        "module": "M2:response",
+        "message": "The request used a location or scope parameter that the policy forbids."
+      },
+      {
+        "layer": "B",
+        "code": "request_unknown_param",
+        "severity": "fail",
+        "detail": "place_id",
+        "step": 2,
+        "module": "M2:response",
+        "message": "The request used a parameter that the policy does not allow."
+      },
+      {
+        "layer": "B",
+        "code": "request_forbidden_param",
+        "severity": "fail",
+        "detail": "place_id",
+        "step": 2,
+        "module": "M2:response",
+        "message": "The request used a location or scope parameter that the policy forbids."
+      },
+      {
+        "layer": "B",
+        "code": "request_unknown_param",
+        "severity": "fail",
+        "detail": "place_id",
+        "step": 2,
+        "module": "M2:response",
+        "message": "The request used a parameter that the policy does not allow."
+      }
+    ],
+    "C": []
+  },
+  "steps": [
+    {
+      "step": 0,
+      "module": "M0:plan",
+      "present": true,
+      "A": "pass",
+      "B": "pass",
+      "C": "pass"
+    },
+    {
+      "step": 1,
+      "module": "M1:request",
+      "present": true,
+      "A": "pass",
+      "B": "fail",
+      "C": "pass"
+    },
+    {
+      "step": 2,
+      "module": "M2:response",
+      "present": true,
+      "A": "pass",
+      "B": "fail",
+      "C": "pass"
+    },
+    {
+      "step": 3,
+      "module": "M3:filter",
+      "present": true,
+      "A": "pass",
+      "B": "pass",
+      "C": "pass"
+    },
+    {
+      "step": 4,
+      "module": "M4:db",
+      "present": true,
+      "A": "pass",
+      "B": "pass",
+      "C": "pass"
+    },
+    {
+      "step": 5,
+      "module": "M5:complete",
+      "present": true,
+      "A": "pass",
+      "B": "pass",
+      "C": "pass"
+    }
+  ],
+  "sealed": true,
+  "window": {
+    "end": "2026-11-23T05:00:00Z",
+    "field": "created_at",
+    "gap_seconds": null,
+    "source": "first_run",
+    "start": "2026-11-22T05:00:00Z"
+  },
+  "dry_run": false,
+  "env": {
+    "db": "test",
+    "db_table": "inaturalist_test",
+    "vault": "test"
+  },
+  "counts": {
+    "accepted": {
+      "changed": 0,
+      "new": 0,
+      "unchanged": 0
+    },
+    "fetched": 450,
+    "inserted": 0,
+    "rejected": {
+      "duplicate_in_response": 0,
+      "malformed": 0,
+      "out_of_policy_scope": 450,
+      "outside_window": 0
+    },
+    "skipped": 0,
+    "total_results": 450,
+    "updated": 0
+  },
+  "run_status": "success",
+  "flags": [
+    "out_of_policy_scope: 450 record(s) rejected"
+  ],
+  "token_needs_refresh": false,
+  "trusted_key_ids": [
+    "e33682fa5c9444cc"
+  ],
+  "verified_at": "2026-11-23T20:28:57.873044Z",
+  "verifier_version": 1,
+  "latency_ms": 17.419
+}

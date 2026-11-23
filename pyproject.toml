@@ -1,0 +1,9 @@
+[project]
+name = "mwia"
+version = "0.1.0"
+description = "MassWildlife Integrity Agent: provenance-receipted iNaturalist ingest with a 3-layer verifier"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

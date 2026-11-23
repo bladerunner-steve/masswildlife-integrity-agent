@@ -1,0 +1,6 @@
+measure,n,mean_ms,p95_ms
+verify_run config A,360,5.692480555555556,7.175
+verify_run config B,360,16.65614722222222,21.501
+verify_run config C,360,26.101544444444446,38.591
+load_context (once per trace),360,19.718747222222223,28.799
+load_context + verify config C,360,45.82029166666667,58.444

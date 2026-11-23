@@ -1,0 +1,159 @@
+{
+  "run_id": "53da276e-d1b6-454c-b9f6-61d31c587679",
+  "run_date": "2026-11-23",
+  "mode": "crypto+policy+evidence",
+  "config": "C",
+  "status": "INSUFFICIENT EVIDENCE",
+  "first_failure": null,
+  "findings": {
+    "A": [],
+    "B": [],
+    "C": [
+      {
+        "layer": "C",
+        "code": "raw_page_missing",
+        "severity": "insufficient",
+        "detail": "3 pages recorded, 2 kept",
+        "step": 2,
+        "module": "M2:response",
+        "message": "A fetched page of results was not kept as evidence."
+      },
+      {
+        "layer": "C",
+        "code": "raw_page_missing",
+        "severity": "insufficient",
+        "detail": "page 2",
+        "step": 2,
+        "module": "M2:response",
+        "message": "A fetched page of results was not kept as evidence."
+      },
+      {
+        "layer": "C",
+        "code": "counts_unreconciled",
+        "severity": "insufficient",
+        "detail": "PR2 says 450 fetched, raw pages hold 250",
+        "step": 2,
+        "module": "M2:response",
+        "message": "The record counts do not add up across the steps."
+      },
+      {
+        "layer": "C",
+        "code": "counts_unreconciled",
+        "severity": "insufficient",
+        "detail": "250 records fetched, 450 decided",
+        "step": 3,
+        "module": "M3:filter",
+        "message": "The record counts do not add up across the steps."
+      },
+      {
+        "layer": "C",
+        "code": "counts_unreconciled",
+        "severity": "insufficient",
+        "detail": "decided records differ from fetched records",
+        "step": 3,
+        "module": "M3:filter",
+        "message": "The record counts do not add up across the steps."
+      },
+      {
+        "layer": "C",
+        "code": "completion_inconsistent",
+        "severity": "insufficient",
+        "detail": "the run claims success, but its evidence does not support it",
+        "step": 5,
+        "module": "M5:complete",
+        "message": "The run's completion decision does not follow from its evidence."
+      }
+    ]
+  },
+  "steps": [
+    {
+      "step": 0,
+      "module": "M0:plan",
+      "present": true,
+      "A": "pass",
+      "B": "pass",
+      "C": "pass"
+    },
+    {
+      "step": 1,
+      "module": "M1:request",
+      "present": true,
+      "A": "pass",
+      "B": "pass",
+      "C": "pass"
+    },
+    {
+      "step": 2,
+      "module": "M2:response",
+      "present": true,
+      "A": "pass",
+      "B": "pass",
+      "C": "insufficient"
+    },
+    {
+      "step": 3,
+      "module": "M3:filter",
+      "present": true,
+      "A": "pass",
+      "B": "pass",
+      "C": "insufficient"
+    },
+    {
+      "step": 4,
+      "module": "M4:db",
+      "present": true,
+      "A": "pass",
+      "B": "pass",
+      "C": "pass"
+    },
+    {
+      "step": 5,
+      "module": "M5:complete",
+      "present": true,
+      "A": "pass",
+      "B": "pass",
+      "C": "insufficient"
+    }
+  ],
+  "sealed": true,
+  "window": {
+    "end": "2026-11-23T05:00:00Z",
+    "field": "created_at",
+    "gap_seconds": null,
+    "source": "first_run",
+    "start": "2026-11-22T05:00:00Z"
+  },
+  "dry_run": false,
+  "env": {
+    "db": "test",
+    "db_table": "inaturalist_test",
+    "vault": "test"
+  },
+  "counts": {
+    "accepted": {
+      "changed": 0,
+      "new": 450,
+      "unchanged": 0
+    },
+    "fetched": 450,
+    "inserted": 450,
+    "rejected": {
+      "duplicate_in_response": 0,
+      "malformed": 0,
+      "out_of_policy_scope": 0,
+      "outside_window": 0
+    },
+    "skipped": 0,
+    "total_results": 450,
+    "updated": 0
+  },
+  "run_status": "success",
+  "flags": [],
+  "token_needs_refresh": false,
+  "trusted_key_ids": [
+    "e33682fa5c9444cc"
+  ],
+  "verified_at": "2026-11-23T20:28:58.535728Z",
+  "verifier_version": 1,
+  "latency_ms": 27.629
+}

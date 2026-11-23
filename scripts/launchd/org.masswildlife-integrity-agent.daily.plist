@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  macOS launchd job: runs scripts/run_daily.sh every day at 06:00 local time.
+  Install: replace /path/to/masswildlife-integrity-agent (4 places) with the repository path, then
+    cp scripts/launchd/org.masswildlife-integrity-agent.daily.plist ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/org.masswildlife-integrity-agent.daily.plist
+  launchd runs a calendar job missed while the Mac was asleep once it wakes. The agent's window logic then
+  catches up to 24 h + grace and flags any uncovered gap.
+  AI-assisted (Claude). Verified by: tests/test_scheduling.py (plist parses; points at run_daily.sh).
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>org.masswildlife-integrity-agent.daily</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/path/to/masswildlife-integrity-agent/scripts/run_daily.sh</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/path/to/masswildlife-integrity-agent</string>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>6</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>/path/to/masswildlife-integrity-agent/logs/launchd.log</string>
+    <key>StandardErrorPath</key>
+    <string>/path/to/masswildlife-integrity-agent/logs/launchd.log</string>
+    <key>RunAtLoad</key>
+    <false/>
+</dict>
+</plist>

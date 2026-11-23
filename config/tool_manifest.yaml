@@ -1,0 +1,44 @@
+# Tool manifest: the tools each run may use and the source files measured into each module's agent_id.
+# Hashed into every agent_id (see src/mwia/common/measure.py). Changing it changes every measurement.
+# AI-assisted (Claude). Verified by: tests/test_measurement.py. Module source files are created in Phase 3.
+manifest_version: 1
+
+tools:
+  http:
+    host: api.inaturalist.org
+    endpoints: [/v2/observations]
+    methods: [GET]
+  database:
+    user: claude
+    operations: [SELECT, INSERT, UPDATE]
+  notary:
+    transport: stdio-subprocess        # python -m mwia.notary serve; the only process that loads the private key
+
+# Code every module runs with: the orchestrator, receipt emission, vault, notary client and index writes.
+shared_sources:
+  - src/mwia/__init__.py
+  - src/mwia/common/canonical.py
+  - src/mwia/common/receipt.py
+  - src/mwia/common/timeutil.py
+  - src/mwia/common/measure.py
+  - src/mwia/common/filelock.py
+  - src/mwia/common/fsperm.py
+  - src/mwia/agent/config.py
+  - src/mwia/agent/emit.py
+  - src/mwia/agent/pipeline.py
+  - src/mwia/notary/client.py
+  - src/mwia/vault/__init__.py
+  - src/mwia/vault/base.py
+  - src/mwia/vault/ledger.py
+  - src/mwia/vault/local.py
+  - src/mwia/vault/anchor.py
+  - src/mwia/index/db.py
+  - src/mwia/index/provenance.py
+
+modules:
+  "M0:plan":     {model_id: deterministic-plan-v1,     sources: [src/mwia/agent/m0_plan.py]}
+  "M1:request":  {model_id: deterministic-request-v1,  sources: [src/mwia/agent/m1_request.py, src/mwia/agent/policy_gate.py, src/mwia/agent/auth.py, src/mwia/agent/transform.py]}
+  "M2:response": {model_id: deterministic-fetch-v1,    sources: [src/mwia/agent/m2_response.py, src/mwia/agent/http.py, src/mwia/agent/policy_gate.py]}
+  "M3:filter":   {model_id: deterministic-filter-v1,   sources: [src/mwia/agent/m3_filter.py, src/mwia/agent/transform.py, src/mwia/agent/store.py]}
+  "M4:db":       {model_id: deterministic-db-v1,       sources: [src/mwia/agent/m4_db.py, src/mwia/agent/store.py, src/mwia/agent/transform.py]}
+  "M5:complete": {model_id: deterministic-complete-v1, sources: [src/mwia/agent/m5_complete.py]}

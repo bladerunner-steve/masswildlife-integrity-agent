@@ -1,0 +1,28 @@
+# Runtime settings (not hashed into receipts; config/policy.yaml is the policy).
+# AI-assisted (Claude). Verified by: tests/test_vault_local.py (open_vault), tests/test_anchor.py.
+
+vault:
+  backend: local                 # local | s3 (s3 needs requirements-s3.txt and a bucket with Object Lock)
+  roots: {prod: vault, test: vault-test}
+  retention_days: 365            # COMPLIANCE retention for new objects; can be raised, never lowered
+  harden: true                   # read-only + deny-delete ACLs (Windows) / chmod 444 (POSIX)
+  s3: {bucket: null, prefix: "mwia/", region: null}
+
+anchors:
+  files: {prod: anchors/anchors.txt, test: anchors-test/anchors.txt}   # each directory is its own git repo
+  git: true
+  git_executable: null           # null = git on PATH, then C:\Program Files\Git\cmd\git.exe
+
+database:
+  tables: {prod: inaturalist, test: inaturalist_test}
+  schema: masswildlife
+
+agent:
+  keys_dir: keys
+  reports_dir: reports
+  # Each window starts this long before the previous successful window_end, so records the API indexes a
+  # little late are not missed. The total length stays capped at policy max_hours + grace_minutes, and
+  # re-reading the overlap is harmless because upserts are idempotent.
+  window_overlap_minutes: 10
+  http_timeout_seconds: 60
+  http_max_attempts: 5

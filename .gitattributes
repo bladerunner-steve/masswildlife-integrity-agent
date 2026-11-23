@@ -1,0 +1,11 @@
+# Module measurements hash the raw bytes of source and config files, so line endings must not
+# change between checkouts (Windows autocrlf would otherwise change every agent_id).
+*.py   text eol=lf
+*.yaml text eol=lf
+*.yml  text eol=lf
+*.json text eol=lf
+*.sql  text eol=lf
+*.md   text eol=lf
+# Shell scripts must keep LF everywhere (bash rejects CRLF, including Git Bash on Windows).
+*.sh             text eol=lf
+.githooks/*      text eol=lf

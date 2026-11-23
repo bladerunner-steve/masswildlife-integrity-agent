@@ -1,0 +1,13 @@
+config,label,V,F,I,total
+A,legitimate,30,0,0,30
+A,tampered,0,150,0,150
+A,policy_violation,90,0,0,90
+A,insufficient,60,0,30,90
+B,legitimate,30,0,0,30
+B,tampered,0,150,0,150
+B,policy_violation,0,90,0,90
+B,insufficient,52,8,30,90
+C,legitimate,30,0,0,30
+C,tampered,0,150,0,150
+C,policy_violation,0,90,0,90
+C,insufficient,0,8,82,90
