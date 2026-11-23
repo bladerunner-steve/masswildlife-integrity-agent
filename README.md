@@ -217,7 +217,8 @@ and an earlier run that exposed a verifier bug is kept in `eval/results/archive/
 - `tests/fixtures/` holds 10 real iNaturalist observations (CC BY-NC) with observer identity pseudonymized. See its
   README for attribution. `examples/` contains synthetic runs only.
 - The HTTP User-Agent is `masswildlife-integrity-agent/0.1`, and requests are rate-limited to at most 1 per second.
-- A licence for the code has not been chosen yet.
+- The code is released under the [MIT License](LICENSE). The licence does not cover the iNaturalist records in
+  `tests/fixtures/`, which keep their own CC BY-NC terms (see that folder's README).
 
 ## Tests and AI disclosure
 

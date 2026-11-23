@@ -71,7 +71,8 @@ confirmed decisions and verified API facts, and overrides Part A.
   test for AI-disclosure headers. `pytest`: 353 passed. A `--all` secret scan of what would be committed is clean.
 - Checkpoint 7 passed. First commit `833065c` on main (135 files; pre-commit secret check passed), authored
   with the GitHub noreply address (repo-local `user.email`). Not pushed.
-  A code licence is not chosen yet. Task registration is left to the author.
+  Code licence: MIT (`LICENSE`, holder "bladerunner-steve"); the fixtures stay CC BY-NC. Task registration is
+  left to the author.
 - Then: `docs/FIELD_MAPPING.md`, `config/policy.yaml` (pinned: project id 46777, slug
   `masswildlife-s-all-wildlife-biodiversity-project`, `scope_place_id: 141552`, window field `created_at`),
   `sql/admin/001_provenance_index.sql`, `002_run_state.sql`, `003_test_table.sql`, `900_reset_test.sql`,
